@@ -49,3 +49,6 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 
 ### EKS
 
+This repo provides terraform configs to setup an EKS cluster that will allow you to try things out inside EKS.
+
+[An example deployment GitHub workflow](https://github.com/DecisiveAI/example-argocd/actions/workflows/deploy.yaml) is also provided to showcase how to deploy the terraform configs to AWS using GitHub workflow.
