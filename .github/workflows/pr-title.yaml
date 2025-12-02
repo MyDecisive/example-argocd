@@ -8,9 +8,11 @@ on:
       - edited
       - synchronize
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   pr-title:
-    permissions:
-      pull-requests: write
     uses: DecisiveAI/changelogs/.github/workflows/reusable-semantic-pr-title.yaml@main
     secrets: inherit # pass all secrets
