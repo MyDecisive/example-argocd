@@ -16,7 +16,7 @@ spec:
       # - $values/argocd/mdai/chart/local-values.yaml # Uncomment to test this locally
       - $values/argocd/mdai/chart/values.yaml
   - repoURL: https://github.com/DecisiveAI/example-argocd.git
-    targetRevision: ENG-941
+    targetRevision: HEAD
     path: argocd/mdai/chart
     ref: values
   destination:
