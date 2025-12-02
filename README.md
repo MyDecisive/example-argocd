@@ -1,2 +1,51 @@
-# example-argocd
+# ArgoCD Example Repository
 Example repository showcasing managing MDAI using ArgoCD
+
+### Table of Contents
+
+- [Try It Out](#try-it-out)
+  - [Locally](#locally)
+    - [Prerequisite](#prerequisite)
+    - [Run Everything](#run-everything)
+  - [EKS](#eks)
+
+## Try It Out
+
+### Locally
+
+#### Prerequisite
+
+Ensure you have the following installed:
+- [helm](https://helm.sh/docs/intro/install/)
+- [kind](https://kind.sigs.k8s.io/docs/user/quick-start/)
+- [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl)
+- [tilt](https://docs.tilt.dev/index.html)
+
+Alternatively, you can also use the provided [devcontainer](./.devcontainer/devcontainer.json).
+
+#### Run Everything
+
+```
+kind create cluster --name local-cluster
+```
+
+Before running the following command, remember to update [mdai.yaml](./argocd/apps/mdai.yaml) to use `local-values.yaml`:
+
+```
+tilt up
+```
+
+You'll be able to access the ArgoCD UI via `localhost:1443`.
+
+> [!NOTE]  
+> Depend on the browser, it might warn you about accessing the ArgoCD UI due to certificate issues.
+> It is expected and normal, just confirm you want to access the website anyways.
+
+The username will be `admin` and you can grab the password by running:
+
+```sh
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
+```
+
+### EKS
+
