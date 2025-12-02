@@ -33,8 +33,6 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE }}
           role-session-name: ExampleArgoCDDeployJob
           aws-region: ${{ vars.AWS_REGION }}
-      - name: Update kubeconfig
-        run: aws eks --region ${{ vars.AWS_REGION }} update-kubeconfig --name  ${{ vars.CLUSTER_NAME }}
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
@@ -53,6 +51,8 @@ jobs:
         run: terraform plan -no-color -compact-warnings -out tfplan
       - name: Terraform Apply
         run: terraform apply -auto-approve tfplan
+      - name: Update kubeconfig
+        run: aws eks --region ${{ vars.AWS_REGION }} update-kubeconfig --name  ${{ vars.CLUSTER_NAME }}
       - name: Apply ArgoCD Config
         working-directory: argocd
         run: |
