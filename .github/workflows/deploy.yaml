@@ -52,4 +52,6 @@ jobs:
         run: terraform apply -auto-approve tfplan
       - name: Apply ArgoCD Config
         working-directory: argocd
-        run: kubectl apply --server-side -f apps.yaml
+        run: |
+          kubectl patch cm/argocd-cm --type=merge -n argocd --patch-file argocd-cm.yaml
+          kubectl apply --server-side -f argocd.yaml

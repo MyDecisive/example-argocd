@@ -3,6 +3,8 @@ kind: Application
 metadata:
   name: mdai
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   project: default
   sources:
@@ -28,7 +30,7 @@ spec:
     - CreateNamespace=true
     - ServerSideApply=true
     retry:
-      limit: 1
+      limit: 2
   ignoreDifferences:
     - group: apps
       kind: StatefulSet
