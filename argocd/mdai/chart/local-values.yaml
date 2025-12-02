@@ -24,8 +24,6 @@ valkey:
   enabled: true
   auth:
     enabled: true
-    existingSecret: valkey-secret
-    existingSecretPasswordKey: VALKEY_PASSWORD
 
 nats:
   config:
