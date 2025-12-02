@@ -32,7 +32,7 @@ repoServer:
   resources:
     limits:
       cpu: 50m
-      memory: 128Mi
+      memory: 512Mi
 applicationSet:
   resources:
     limits:
