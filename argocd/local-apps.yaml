@@ -11,13 +11,13 @@ spec:
     targetRevision: 0.9.0-dev
     helm:
       valueFiles:
-      - $values/argocd/mdai/chart/values.yaml
+      - $values/argocd/mdai/chart/local-values.yaml
   - repoURL: https://github.com/DecisiveAI/example-argocd.git
-    targetRevision: HEAD
+    targetRevision: ENG-941
     path: argocd/mdai/chart
     ref: values
   - repoURL: https://github.com/DecisiveAI/example-argocd.git
-    targetRevision: HEAD
+    targetRevision: ENG-941
     path: argocd/mdai/kustomize
   destination:
     name: "in-cluster"
