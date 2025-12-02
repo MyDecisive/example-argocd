@@ -1,0 +1,17 @@
+name: PR Title Validate
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - edited
+      - synchronize
+
+permissions:
+  pull-requests: write
+
+jobs:
+  reusable:
+    uses: DecisiveAI/changelogs/.github/workflows/reusable-semantic-pr-title.yaml@main
+    secrets: inherit # pass all secrets

@@ -28,7 +28,7 @@ jobs:
         name: Cache TFLint Plugins
         with:
           path: ~/.tflint.d/plugins
-          key: ${{ github.workflow }}-tflint-${{ hashFiles('.tflint.hcl') }}
+          key: ${{ github.workflow }}-tflint-${{ hashFiles('terraform/.tflint.hcl') }}
       - uses: terraform-linters/setup-tflint@v5
         name: Setup TFLint
         with:
@@ -40,4 +40,4 @@ jobs:
       - name: Check Format
         run: terraform fmt -recursive -check
       - name: TFLint
-        run: tflint --recursive --config=${{ github.workspace }}/.tflint.hcl -f compact
+        run: tflint --recursive --config=${{ github.workspace }}/terraform/.tflint.hcl -f compact
