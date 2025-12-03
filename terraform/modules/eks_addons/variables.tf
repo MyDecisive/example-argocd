@@ -50,12 +50,6 @@ variable "argocd_version" {
   default     = "9.1.5"
 }
 
-variable "argocd_repo_url" {
-  description = "Repository root URL that will be monitored by ArgoCD"
-  type        = string
-  default     = "https://github.com/DecisiveAI"
-}
-
 #EBS CSI Driver
 variable "ebs_csi_driver_iam" {
   description = "IAM role name to allow EBS CSI driver to do its thing"
