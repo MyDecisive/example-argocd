@@ -2,7 +2,9 @@ persistentStorage:
   nats:
     pv:
       create: false # Let EBS CSI create the PV for us 
-      
+      merge: # Add apiVersion/kind to avoid ArgoCD drift on implicit fields
+        apiVersion: v1
+        kind: PersistentVolumeClaim
 
 mdai-operator:
   controllerManager:
@@ -27,6 +29,3 @@ nats:
           enabled: true
           storageClassName: gp2
           size: 1Gi
-          merge: # Add apiVersion/kind to avoid ArgoCD drift on implicit fields
-            apiVersion: v1
-            kind: PersistentVolumeClaim
