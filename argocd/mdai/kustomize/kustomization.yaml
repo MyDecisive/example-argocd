@@ -4,5 +4,6 @@ kind: Kustomization
 resources:
 - collector.yaml
 - hub.yaml
-- observer.yaml
 - otel.yaml
+- otel.yaml
+- synthetics.yaml
