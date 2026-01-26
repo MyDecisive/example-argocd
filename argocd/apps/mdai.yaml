@@ -10,7 +10,7 @@ spec:
   sources:
   - repoURL: oci://ghcr.io/decisiveai/mdai-hub
     chart: mdai
-    targetRevision: v0.9.3-dev
+    targetRevision: 0.9.3-dev
     helm:
       valueFiles:
       # - $values/argocd/mdai/chart/values.yaml
@@ -32,11 +32,3 @@ spec:
     - ServerSideApply=true
     retry:
       limit: 2
-#  ignoreDifferences:
-#    - group: apps
-#      kind: StatefulSet
-#      jsonPointers:
-#        - /spec/volumeClaimTemplates
-#    - kind: ConfigMap
-#      jsonPointers:
-#        - /data/DEPLOY_TIMESTAMP

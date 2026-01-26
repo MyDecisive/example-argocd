@@ -3,7 +3,8 @@ kind: MdaiObserver
 metadata:
   labels:
     app.kubernetes.io/name: mdai-operator
-  name: example
+    app.kubernetes.io/managed-by: kustomize
+  name: ddf
   namespace: mdai
 spec:
   observers:

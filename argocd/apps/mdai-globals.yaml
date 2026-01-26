@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: mdai-addon
+  name: mdai-global-config
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "2"
@@ -10,15 +10,14 @@ spec:
   source:
     repoURL: https://github.com/DecisiveAI/example-argocd.git
     targetRevision: test/argo-cd-example
-    path: argocd/mdai/kustomize
+    path: argocd/mdai/live/global
   destination:
-    name: "in-cluster"
+    name: in-cluster
     namespace: mdai
   syncPolicy:
     automated:
-      enabled: true
       prune: true
+      selfHeal: true
     syncOptions:
     - PruneLast=true
-    retry:
-      limit: 4
+    - ServerSideApply=true
