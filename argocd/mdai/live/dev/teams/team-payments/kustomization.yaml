@@ -36,5 +36,16 @@ replacements:
     - spec.envFrom.0.configMapRef.name
     options:
       create: true
+  - source:
+    kind: ConfigMap
+    name: hub-name-params
+    fieldPath: data.GATEWAY_NAME
+  targets:
+  - select:
+      kind: OpenTelemetryCollector
+      name: gateway
+    fieldPaths:
+    - metadata.name
+
 patches:
 - path: patches/patch-collector-envfrom.yaml
