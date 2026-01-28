@@ -1,4 +1,9 @@
 # ArgoCD Example Repository
+
+## Repo layout
+
+![Repository structure](usage/diagrams/repo-structure.png)
+
 Example repository showcasing managing MDAI using ArgoCD
 
 ### Table of Contents
@@ -30,7 +35,7 @@ Alternatively, you can also use the provided [devcontainer](./.devcontainer/devc
 kind create cluster --name local-cluster
 ```
 
-Before running the following command, remember to update [mdai.yaml](./argocd/apps/mdai.yaml) to use `local-values.yaml`:
+Before running the following command, remember to update [mdai.yaml](./argocd/apps/dev/mdai.yaml) to use `local-values.yaml`:
 
 ```
 tilt up
@@ -62,4 +67,41 @@ The username will be `admin` and you can grab the password by running:
 
 ```sh
 kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
+```
+
+## Dev vs Prod
+By default, this repo enables **dev** Argo CD Applications only (under `argocd/apps/dev`).
+
+To enable production Applications, apply:
+```sh
+kubectl apply -f argocd/argocd-prod.yaml
+```
+To disable prod again:
+```sh
+kubectl -n argocd delete application mdai-apps-prod
+```
+
+
+### Production “safe mode”
+When you enable prod via `argocd/argocd-prod.yaml`, the prod Applications are created in **manual sync** mode:
+- **No auto-sync**
+- **No self-heal**
+
+To deploy prod, sync the prod apps manually in the Argo CD UI, or with the Argo CD CLI:
+```sh
+argocd app sync mdai-global-config-prod
+argocd app sync mdai-team-payments-prod
+```
+
+### Enabling auto-sync for prod (explicit opt-in)
+If/when you want prod to behave like dev (auto-sync + self-heal), patch an Application to add an `automated` policy:
+```sh
+kubectl -n argocd patch application mdai-global-config-prod --type merge -p '{"spec":{"syncPolicy":{"automated":{"prune":true,"selfHeal":true}}}}'
+kubectl -n argocd patch application mdai-team-payments-prod --type merge -p '{"spec":{"syncPolicy":{"automated":{"prune":true,"selfHeal":true}}}}'
+```
+
+To revert back to safe mode (manual sync), remove the automated block:
+```sh
+kubectl -n argocd patch application mdai-global-config-prod --type json -p='[{"op":"remove","path":"/spec/syncPolicy/automated"}]'
+kubectl -n argocd patch application mdai-team-payments-prod --type json -p='[{"op":"remove","path":"/spec/syncPolicy/automated"}]'
 ```

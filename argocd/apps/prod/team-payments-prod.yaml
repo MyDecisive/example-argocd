@@ -1,23 +1,22 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: mdai-global-config
+  name: mdai-team-payments-prod
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-wave: '3'
+    mdai.dec.ai/safe-mode: 'true'
+    mdai.dec.ai/note: prod apps are manual sync (no automated/self-heal)
 spec:
   project: default
   source:
     repoURL: https://github.com/DecisiveAI/example-argocd.git
     targetRevision: test/argo-cd-example
-    path: argocd/mdai/live/global
+    path: argocd/mdai/live/prod/teams/team-payments
   destination:
     name: in-cluster
     namespace: mdai
   syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
     syncOptions:
     - PruneLast=true
     - ServerSideApply=true

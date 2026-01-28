@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: mdai-team-payments
+  name: mdai-team-payments-dev
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "3"
@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/DecisiveAI/example-argocd.git
     targetRevision: test/argo-cd-example
-    path: argocd/mdai/live/teams/team-payments
+    path: argocd/mdai/live/dev/teams/team-payments
   destination:
     name: in-cluster
     namespace: mdai

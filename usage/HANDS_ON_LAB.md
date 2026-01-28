@@ -4,24 +4,25 @@
 Enable a solution for a fake team and preview output safely.
 
 ## Step 1 – Create a Team
-Copy:
-- catalog/teams/team-example → team-lab
-- live/teams/team-example → team-lab
+Copy (dev environment):
+- `argocd/mdai/live/dev/teams/team-example` → `argocd/mdai/live/dev/teams/team-lab`
 
-Set:
-- HUB_NAME=mdaihub-team-lab
-- HUB_VARS_CM=mdaihub-team-lab-variables
+Set (in the copied team's `patches/` ConfigMaps):
+- `HUB_NAME=mdaihub-team-lab`
+- `HUB_VARS_CM=mdaihub-team-lab-variables`
+
+> Optional: if you also want parity in prod, copy the same folder under `argocd/mdai/live/prod/teams/`.
 
 ## Step 2 – Enable a Solution
 Edit:
-live/teams/team-lab/kustomization.yaml
+live/<env>/teams/team-lab/kustomization.yaml
 
 Add:
 catalog/solutions/data-filtration/v1
 
 ## Step 3 – Preview
 ```bash
-kustomize build argocd/mdai/live/teams/team-lab
+kustomize build argocd/mdai/live/<env>/teams/team-lab
 ```
 
 Verify:

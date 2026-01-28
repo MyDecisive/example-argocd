@@ -16,13 +16,13 @@
 ## Kustomize Output (required)
 Paste the output (or diff) of:
 ```bash
-kustomize build argocd/mdai/live/teams/<team>
+kustomize build argocd/mdai/live/<env>/teams/<team>
 ```
 
 ## Validation Checklist
 - [ ] `kustomize build` succeeds
 - [ ] Hub name resolves correctly
-- [ ] Collector label `mydecisive.ai/hub-name` matches hub
+- [ ] Collector label `[mydecisive.ai/hub-name]` matches hub
 - [ ] No unintended teams affected
 
 ## Rollback Plan
@@ -30,5 +30,5 @@ kustomize build argocd/mdai/live/teams/<team>
 
 ## Which Argo app should be synced?
 - [ ] mdai (platform)
-- [ ] mdai-global-config (global)
-- [ ] mdai-team-<team> (team)
+- [ ] mdai-global-config-<env> (global)
+- [ ] mdai-team-<team>-<env> (team)

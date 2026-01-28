@@ -6,4 +6,4 @@ metadata:
     app.kubernetes.io/managed-by: kustomize
   name: mdaihub-template
   namespace: mdai
-spec:
+spec: {}

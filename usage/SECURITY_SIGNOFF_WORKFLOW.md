@@ -4,7 +4,7 @@ This workflow defines when and how security approval is required.
 
 ## Changes Requiring Security Review
 - Modifications under `catalog/globals/`
-- Any change to `live/global`
+- Any change to `live/<env>/global`
 - Changes affecting PII handling
 - Operator / CRD changes
 
@@ -24,5 +24,5 @@ This workflow defines when and how security approval is required.
 - Non-functional documentation changes
 
 ## Emergency Rollback
-- Remove solution reference from `live/teams/<team>`
+- Remove solution reference from `live/<env>/teams/<team>`
 - Or suspend Argo Application

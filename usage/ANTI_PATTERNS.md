@@ -9,7 +9,7 @@ Changes in `catalog/` do nothing unless referenced from `live/`.
 This defeats reuse. Prefer solutions + patches.
 
 ## ❌ Hardcoding team names in solutions
-Solutions must be reusable. Team-specific values belong in `catalog/teams/`.
+Solutions must be reusable. Team-specific values belong in `live/<env>/teams/<team>/` (typically under `patches/` or team ConfigMaps).
 
 ## ❌ Renaming template resources casually
 Changing hub or collector template names breaks replacements.

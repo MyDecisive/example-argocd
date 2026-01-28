@@ -1,21 +1,14 @@
 # Handoff Guide – Operating the MyDecisive GitOps Repo
 
+> Assumes you’ve read [REPO_STRUCTURE.md](./REPO_STRUCTURE.md) for directory intent and invariants.
+
+
 ## What you’re operating
 This repo manages **collector behavior** (solutions + overrides) and drives Argo CD to apply it.
 
 ## Argo CD Applications (layers)
-1) **mdai-apps** (`argocd/argocd.yaml`)
-   - App-of-apps bootstrap
-   - Source: `argocd/apps/**` (directory recursion enabled)
-2) **mdai** (`argocd/apps/mdai.yaml`)
-   - Platform install (Helm)
-   - Installs CRDs/controllers needed by MyDecisive CRs
-3) **mdai-global-config** (`argocd/apps/mdai-global-config.yaml` or `mdai-addons.yaml`)
-   - Global baseline config
-   - Source: `argocd/mdai/live/global`
-4) **mdai-team-<team>** (`argocd/apps/teams/*.yaml`)
-   - Team bundle config
-   - Source: `argocd/mdai/live/teams/<team>`
+
+Review [Layers](./ARCHITECTURE.md#layers-in-argo-cd)
 
 ## Golden rule
 **Argo CD syncs only from `argocd/mdai/live/**`.**
@@ -23,34 +16,43 @@ This repo manages **collector behavior** (solutions + overrides) and drives Argo
 `catalog/` is a library and does nothing until referenced from `live/`.
 
 ## Repo layout (what goes where)
-- `argocd/mdai/catalog/globals/base`  
-  Minimal always-on baseline templates (hub + collector). Keep this small.
-- `argocd/mdai/catalog/globals/contracts/*`  
-  Shared contracts (variable keys/types, shared CRs required by a solution).
-- `argocd/mdai/catalog/solutions/<use-case>/vN`  
-  Reusable, parameterized solution bundles. If a solution needs “global” CRs, include them as `contracts/` inside the solution (solution-scoped globals).
-- `argocd/mdai/catalog/teams/<team>`  
-  Team params + overrides (regex/templates, hub name parameters, envFrom ordering).
-- `argocd/mdai/live/global`  
-  What is enabled globally (baseline and globally-on solutions).
-- `argocd/mdai/live/teams/<team>`  
-  What is enabled for a team (inherits baseline + selected solutions + team overlay).
+
+| Path                                          | Purpose                               | Notes / guidance                                                                                                                              |
+| --------------------------------------------- | ------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `argocd/mdai/catalog/globals/base`            | **Always-on global baseline**         | Keep this minimal (e.g., hub + collector). Only true platform prerequisites belong here.                                                      |
+| `argocd/mdai/catalog/globals/contracts/*`     | **Shared contracts**                  | Variable keys/types and shared CRs required by solutions. Not environment-specific.                                                           |
+| `argocd/mdai/catalog/solutions/<use-case>/vN` | **Reusable solution bundles**         | Parameterized and versioned. If a solution needs “global” CRs, include them under `contracts/` inside the solution (solution-scoped globals). |
+| `argocd/mdai/live/<env>/global`               | **Global enablement per environment** | Defines what is enabled cluster-wide in an environment (baseline + globally-on solutions).                                                    |
+| `argocd/mdai/live/<env>/teams/<team>`         | **Team enablement and overrides**     | Team-specific parameters and overlays. Inherits baseline + selected solutions + team patches.                                                 |
+
 
 ## Making changes (safe workflow)
 1) Edit the right layer (`catalog/` or `live/`)
 2) Preview:
    ```bash
-   kustomize build argocd/mdai/live/global > /tmp/global.yaml
-   kustomize build argocd/mdai/live/teams/<team> > /tmp/team.yaml
+   kustomize build argocd/mdai/live/<env>/global > /tmp/global.yaml
+   kustomize build argocd/mdai/live/<env>/teams/<team> > /tmp/team.yaml
    ```
 3) Open PR and paste relevant `kustomize build` output/diff
 4) After merge, sync the smallest-scope Argo app that matches the change:
-   - global change → **mdai-global-config**
-   - team-only change → **mdai-team-<team>**
+   - global change → **mdai-global-config-<env>**
+   - team-only change → **mdai-team-<team>-<env>**
 
-## Common gotchas
-- **Child apps not appearing:** check mdai-apps points at the correct `targetRevision` and path `argocd/apps` (with recursion).
-- **Repo branch mismatch:** all Applications should use the same `targetRevision`.
-- **Template rename breakage:** renaming the template hub/collector names requires updating Kustomize replacement selectors.
+## Common issues & troubleshooting
 
+| Symptom                                     | Likely cause                                | What to check                                                                     | Fix                                                     |
+| ------------------------------------------- | ------------------------------------------- | --------------------------------------------------------------------------------- | ------------------------------------------------------- |
+| Child Applications not appearing in Argo CD | `mdai-apps` bootstrap misconfigured         | `mdai-apps` `source.path` is `argocd/apps/dev` and directory recursion is enabled | Fix path or enable `directory.recurse: true`            |
+| Applications on different branches          | `targetRevision` mismatch                   | All Applications should reference the same branch/tag                             | Align `targetRevision` across all Applications          |
+| Deployments break after template rename     | Kustomize replacement selectors out of date | Replacement selectors still reference old hub/collector names                     | Update replacement selectors to match renamed templates |
+
+### Quick checklist (optional runbook version)
+
+[ ] Verify mdai-apps points to argocd/apps/dev with directory recursion enabled
+
+[ ] Confirm all Argo CD Applications use the same targetRevision
+
+[ ] If renaming hub/collector templates, update all Kustomize replacement selectors
+
+---
 See also: [CHANGE_IMPACT_MATRIX.md](./CHANGE_IMPACT_MATRIX.md) and [ANTI_PATTERNS.md](./ANTI_PATTERNS.md).
