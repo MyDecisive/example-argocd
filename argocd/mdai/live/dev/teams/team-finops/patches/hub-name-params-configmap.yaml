@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: hub-name-params
+  name: hub-name-params-finops
   namespace: mdai
 data:
   HUB_NAME: mdaihub-team-finops

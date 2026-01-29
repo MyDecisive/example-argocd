@@ -7,7 +7,7 @@ resources:
 replacements:
 - source:
     kind: ConfigMap
-    name: hub-name-params
+    name: hub-name-params-finops
     fieldPath: data.HUB_NAME
   targets:
   - select:
@@ -25,7 +25,7 @@ replacements:
 
 - source:
     kind: ConfigMap
-    name: hub-name-params
+    name: hub-name-params-finops
     fieldPath: data.HUB_VARS_CM
   targets:
   - select:
@@ -38,7 +38,7 @@ replacements:
 
 - source:
     kind: ConfigMap
-    name: hub-name-params
+    name: hub-name-params-finops
     fieldPath: data.GATEWAY_NAME
   targets:
   - select:
