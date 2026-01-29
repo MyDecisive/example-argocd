@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: mdaihub-pii-team-example-overrides
+  name: mdaihub-team-example-overrides
   namespace: mdai
   labels:
     mydecisive.ai/team: team-example

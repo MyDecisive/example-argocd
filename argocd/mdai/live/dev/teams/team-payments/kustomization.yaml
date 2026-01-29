@@ -24,6 +24,7 @@ replacements:
     - metadata.labels.[mydecisive.ai/hub-name]
     options:
       create: true
+
 - source:
     kind: ConfigMap
     name: hub-name-params
@@ -36,7 +37,8 @@ replacements:
     - spec.envFrom.0.configMapRef.name
     options:
       create: true
-  - source:
+
+- source:
     kind: ConfigMap
     name: hub-name-params
     fieldPath: data.GATEWAY_NAME

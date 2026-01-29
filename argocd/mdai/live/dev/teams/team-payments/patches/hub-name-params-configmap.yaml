@@ -8,4 +8,4 @@ data:
   # Name of the generated variables ConfigMap that the collector should envFrom.
   # (If your operator uses a different naming convention, change this once per team.)
   HUB_VARS_CM: mdaihub-team-payments-variables
-  GATEWAY_NAME: mdaihub-team-payments
+  GATEWAY_NAME: gateway-team-payments

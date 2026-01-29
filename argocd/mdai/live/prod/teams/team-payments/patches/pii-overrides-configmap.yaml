@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: mdaihub-pii-team-payments-overrides
+  name: mdaihub-team-payments-overrides
   namespace: mdai
   labels:
     mydecisive.ai/team: team-payments

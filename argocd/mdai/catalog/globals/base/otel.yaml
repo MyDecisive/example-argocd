@@ -16,6 +16,9 @@ spec:
     requests:
       memory: "128Mi"
       cpu: "100m"
+  envFrom:
+    - configMapRef:
+        name: mdaihub-template-variables
   config:
     receivers:
       fluentforward:

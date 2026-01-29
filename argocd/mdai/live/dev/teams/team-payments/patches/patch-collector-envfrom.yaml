@@ -10,4 +10,4 @@ spec:
     - configMapRef:
         name: mdaihub-team-payments-variables
     - configMapRef:
-        name: mdaihub-team-payments-overrides
+        name: mdaihub-pii-team-payments-overrides
