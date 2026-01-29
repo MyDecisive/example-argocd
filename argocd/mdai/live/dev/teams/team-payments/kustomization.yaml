@@ -51,6 +51,7 @@ replacements:
     - metadata.name
 
 patches:
-- path: patches/hub-spec.yaml
+- path: patches/hub-spec-df.yaml
+- path: patches/hub-spec-pii.yaml
 - path: patches/collector-envfrom.yaml
 - path: patches/collector-filter.yaml
