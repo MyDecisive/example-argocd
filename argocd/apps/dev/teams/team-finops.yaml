@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/DecisiveAI/example-argocd.git
     targetRevision: test/argo-cd-example
-    path: argocd/mdai/live/dev/teams/team-payments
+    path: argocd/mdai/live/dev/teams/team-finops
   destination:
     name: in-cluster
     namespace: mdai

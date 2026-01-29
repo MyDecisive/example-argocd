@@ -2,10 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
 - ../../../../catalog/globals/base
-- ../../../../catalog/solutions/data-filtration/v1
-- ../../../../catalog/solutions/pii-redaction/v1
 - patches/hub-name-params-configmap.yaml
-- patches/pii-overrides-configmap.yaml
 
 replacements:
 - source:
@@ -51,7 +48,6 @@ replacements:
     - metadata.name
 
 patches:
-- path: patches/hub-spec-df.yaml
-- path: patches/hub-spec-pii.yaml
+- path: patches/hub-spec.yaml
 - path: patches/collector-envfrom.yaml
 - path: patches/collector-filter.yaml

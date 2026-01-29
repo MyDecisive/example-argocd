@@ -4,8 +4,8 @@ metadata:
   name: hub-name-params
   namespace: mdai
 data:
-  HUB_NAME: mdaihub-team-payments
+  HUB_NAME: mdaihub-team-secops
   # Name of the generated variables ConfigMap that the collector should envFrom.
   # (If your operator uses a different naming convention, change this once per team.)
-  HUB_VARS_CM: mdaihub-team-payments-variables
-  GATEWAY_NAME: gateway-team-payments
+  HUB_VARS_CM: mdaihub-team-secops-variables
+  GATEWAY_NAME: gateway-team-secops
