@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mdai-team-secops-dev
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/DecisiveAI/example-argocd.git
+    targetRevision: test/argo-cd-example
+    path: argocd/mdai/live/dev/teams/team-secops
+  destination:
+    name: in-cluster
+    namespace: mdai
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+    - PruneLast=true
+    - ServerSideApply=true
