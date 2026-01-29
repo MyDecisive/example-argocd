@@ -6,6 +6,7 @@ resources:
 - ../../../../catalog/solutions/pii-redaction/v1
 - patches/hub-name-params-configmap.yaml
 - patches/pii-overrides-configmap.yaml
+
 replacements:
 - source:
     kind: ConfigMap
@@ -50,4 +51,6 @@ replacements:
     - metadata.name
 
 patches:
-- path: patches/patch-collector-envfrom.yaml
+- path: patches/hub-spec.yaml
+- path: patches/collector-envfrom.yaml
+- path: patches/collector-filter.yaml

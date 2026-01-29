@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mdaihub-team-payments-variables
+  namespace: mdai
+data:
+  # add vars here as needed
+  # SERVICE_LIST_REGEX: "service1|service2"
