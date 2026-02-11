@@ -42,7 +42,7 @@ You'll be able to access the ArgoCD UI via `localhost:1443` and you can follow [
 
 This repo provides terraform configs to setup an EKS cluster that will allow you to try things out inside EKS.
 
-[An example deployment GitHub workflow](https://github.com/DecisiveAI/example-argocd/actions/workflows/deploy.yaml) is also provided to showcase how to deploy the terraform configs to AWS using GitHub workflow.
+[An example deployment GitHub workflow](https://github.com/MyDecisive/example-argocd/actions/workflows/deploy.yaml) is also provided to showcase how to deploy the terraform configs to AWS using GitHub workflow.
 
 Once this repo is deployed to EKS, run:
 

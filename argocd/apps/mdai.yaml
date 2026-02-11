@@ -8,14 +8,13 @@ metadata:
 spec:
   project: default
   sources:
-  - repoURL: oci://ghcr.io/decisiveai/mdai-hub
+  - repoURL: oci://ghcr.io/mydecisive/mdai-hub
     chart: mdai
     targetRevision: 0.9.0-dev
     helm:
       valueFiles:
       - $values/argocd/mdai/chart/values.yaml
-      - $values/argocd/mdai/chart/local-values.yaml
-  - repoURL: https://github.com/DecisiveAI/example-argocd.git
+  - repoURL: https://github.com/MyDecisive/example-argocd.git
     targetRevision: local
     path: argocd/mdai/chart
     ref: values
