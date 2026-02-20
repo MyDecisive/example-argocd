@@ -52,6 +52,6 @@ spec:
       extensions: [health_check]
       pipelines:
         logs/customer_pipeline:
-          receivers: [fluentforward]
+          receivers: [otlp]
           processors: [memory_limiter, batch]
           exporters: [debug]

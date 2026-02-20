@@ -9,7 +9,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/DecisiveAI/example-argocd.git
-    targetRevision: test/argo-cd-example
+    targetRevision: feat/mdai-labs
     path: argocd/apps/dev
     directory:
       recurse: true
